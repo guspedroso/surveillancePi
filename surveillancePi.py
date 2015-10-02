@@ -4,6 +4,7 @@ import os, sys, string
 sPiDir = "/home/pi/surveillancePi/"
 path = sPiDir + "content/"
 conf = sPiDir + "surveillancePi.conf"
+dropbox_uploader = sPiDir + "Dropbox-Uploader/dropbox_uploader.sh"
 message = "The surveillance system has been triggered. "
 message += "View the content here: https://www.dropbox.com/home/Apps/SurveilancePi"
 
@@ -38,12 +39,15 @@ def upload_files():
     if not os.path.exists(path):
         print path + ' does not exist'
         return
+    if not os.path.isfile(dropbox_uploader):
+        print dropbox_uploader + ' is not installed'
+        return 0
     dir_list = os.listdir(path)
     first_10 = dir_list[:10]
     amt = len(first_10)
     for file_name in first_10:
         file_full_path = path + file_name
-        cmd = sPiDir + "Dropbox-Uploader/dropbox_uploader.sh upload " + file_full_path + " " + file_name
+        cmd = dropbox_uploader + " upload " + file_full_path + " " + file_name
         os.system(cmd)
         os.remove(file_full_path)
     return amt
@@ -76,3 +80,4 @@ if __name__ == "__main__":
     prepare_files()
     amt = upload_files()
     send_text(amt, conf_info)
+    
