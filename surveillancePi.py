@@ -1,11 +1,22 @@
-import os
+import os, sys, string
 
 #change these variables as needed
 sPiDir = "/home/pi/scripts/surveillancePi/"
 path = sPiDir + "content/"
+conf = sPiDir + "surveillancePi.conf"
 message = "The surveillance system has been triggered. "
 message += "View the content here: https://www.dropbox.com/home/Apps/SurveilancePi"
-reciever = "8175555555@vtext.com"
+
+def open_conf():
+    if not os.path.isfile(conf):
+        return []
+    lines = [line.rstrip('\n') for line in open(conf)]
+    info = []
+    for line in lines:
+        parts = string.split(line, ' ')
+        if parts[0] != '#' and parts[0] != '':
+            info.append(parts)
+    return info
 
 def prepare_files():
     if not os.path.exists(path):
@@ -37,7 +48,21 @@ def upload_files():
         os.remove(file_full_path)
     return amt
 
-def send_text(amtIn):
+def send_text(amtIn, conf_infoIn):
+    if conf_infoIn == []:
+        print 'The configuration settings were not found!'
+        print 'Unable to send text'
+        return
+    reciever = ""
+    textsleep = ""
+    textstamp = ""
+    for line in conf_infoIn:
+        if line[0] == "reciever":
+            reciever = line[1]
+        elif line[0] == "textsleep":
+            textsleep = line[1]
+        elif line[0] == "textstamp":
+            textstamp = line[1]
     if amtIn > 0:
         print 'Sending text'
         cmd = 'echo "' + message + '" | mail -s "" "' + reciever + '"'
@@ -47,6 +72,7 @@ def send_text(amtIn):
     os.system("echo '[ '`date`' ] Finished'")
 
 if __name__ == "__main__":
+    conf_info = open_conf()
     prepare_files()
     amt = upload_files()
-    send_text(amt)
+    send_text(amt, conf_info)
