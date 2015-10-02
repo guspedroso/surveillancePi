@@ -64,18 +64,19 @@
 
 	sudo nano ~/.bashrc ; 
 		# add some aliases to make it easier to start and stop the motion detection
+		# and view logs
 		alias mstart='sudo service motion start'
 		alias mstop='sudo service motion stop'
-		
+		alias mlog='tail /home/pi/scripts/surveillancePi/log/surveillancePi.log'
+                alias mclog='tail /home/pi/scripts/surveillancePi/log/control.log'
+	
 	source ~/.bashrc ;
 
 ## Usage
-	mstart # command to start surveillance
-	mstop  # command to stop surveillance
-
-	# to look at most recent activity in the logs, run the commands below
-	tail /home/pi/surveillancePi/log/surveillancePi.log ;
-	tail /home/pi/surveillancePi/log/control.log ;
+	mstart # start surveillance
+	mstop  # stop surveillance
+	mlog   # view most recent activity in surveillancePi.log
+	mclog  # view most recent activity in control.log
 	
 	# From the cron jobs we added earlier, we can modify the last two lines to specify a time to start/stop automatically.
 	# I have mine set to start at 10 pm everyday, usually because I turn it off when I get home 
