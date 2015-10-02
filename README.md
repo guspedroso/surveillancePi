@@ -34,7 +34,7 @@
 		
 	sudo apt-get install ssmtp mailutils mpack ;
 	sudo nano /etc/ssmtp/ssmtp.conf ; 
-		# make these changes to the file
+		# make these changes to the file to your own info
 		mailhub=smtp.gmail.com:587
 		hostname=ENTER YOUR RPI'S HOST NAME HERE
 		AuthUser=YOU@gmail.com
@@ -45,6 +45,9 @@
 	cd /home/pi ;
 	sudo git clone https://github.com/guspedroso/surveillancePi.git ;
 	cd /home/pi/surveillancePi ;
+	sudo nano surveillancePi.conf ; 
+		# read the comments and change settings accordingly :)
+		
 	sudo git clone https://github.com/andreafabrizi/Dropbox-Uploader.git ;
 	sudo chmod +x control.sh Dropbox-Uploader/dropbox_uploader.sh ;
 	Dropbox-Uploader/dropbox_uploader.sh ; 
