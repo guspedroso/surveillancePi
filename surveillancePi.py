@@ -1,7 +1,7 @@
 import os, sys, string
 
 #change these variables as needed
-sPiDir = "/home/pi/scripts/surveillancePi/"
+sPiDir = "/home/pi/surveillancePi/"
 path = sPiDir + "content/"
 conf = sPiDir + "surveillancePi.conf"
 message = "The surveillance system has been triggered. "
