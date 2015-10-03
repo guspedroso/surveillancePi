@@ -7,7 +7,12 @@
 	- Able to be controlled by voice (Coming soon)
 
 ## Installation
-	# Pre req: raspberry pi, usb web cam, gmail and dropbox.
+	# Pre Req: Raspberry Pi: http://www.amazon.com/CanaKit-Raspberry-Complete-Original-Preloaded/dp/B008XVAVAW
+	           USB Web Cam: http://www.amazon.com/Sony-PlayStation-Camera-Bulk-Packaging-Pc/dp/B0072I2240/ref=sr_1_1?ie=UTF8&qid=1443889247&sr=8-1&keywords=ps3+eye
+	           Gmail: https://mail.google.com/
+	           Dropbox: https://www.dropbox.com/
+	           (I listed the rpi and usb cam that I have, others can be used)
+	           
 	# Perform the steps below in the raspberry pi terminal:
 
 	sudo apt-get update ;
