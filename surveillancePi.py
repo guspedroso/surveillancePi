@@ -1,9 +1,10 @@
-import os, sys, string
+import os, sys, string, time, datetime
 
 #change these variables as needed
 sPiDir = "/home/pi/surveillancePi/"
 path = sPiDir + "content/"
 conf = sPiDir + "surveillancePi.conf"
+newconf = sPiDir + "surveillancePiNew.conf"
 dropbox_uploader = sPiDir + "Dropbox-Uploader/dropbox_uploader.sh"
 message = "The surveillance system has been triggered. "
 message += "View the content here: https://www.dropbox.com/home/Apps/SurveilancePi"
@@ -67,10 +68,19 @@ def send_text(amtIn, conf_infoIn):
             textsleep = line[1]
         elif line[0] == "textstamp":
             textstamp = line[1]
-    if amtIn > 0:
+    if amtIn > 0 and time.time() > float(textstamp):
         print 'Sending text'
         cmd = 'echo "' + message + '" | mail -s "" "' + reciever + '"'
         os.system(cmd)
+        newts = time.time() + (60*float(textsleep))
+        with open(conf, 'r') as input_file, open(newconf, 'w') as output_file:
+            for line in input_file:
+                if line.strip() == 'textstamp ' + textstamp:
+                    output_file.write('textstamp ' + str(time.time() + (60*float(textsleep))) + '\n')
+                else:
+                    output_file.write(line)
+        os.system("rm " + conf)
+        os.system("mv " + newconf + " " + conf)
     else:
         print 'Not sending text'
     os.system("echo '[ '`date`' ] Finished'")
@@ -80,4 +90,3 @@ if __name__ == "__main__":
     prepare_files()
     amt = upload_files()
     send_text(amt, conf_info)
-    
