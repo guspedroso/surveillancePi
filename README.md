@@ -17,7 +17,7 @@
 
 	sudo apt-get update ;
 	sudo apt-get upgrade --yes ;
-	sudo apt-get install motion ;
+	sudo apt-get install motion --yes ;
 	sudo nano /etc/motion/motion.conf ; 
 		# make these changes to the file
 		daemon on
@@ -26,9 +26,9 @@
 		framerate 120
 		pre_capture 2
 		post_capture 2
-		max_mpeg_time 600
-		ffmpeg_video_codec msmpeg4
-		locate on
+		max_mpeg_time 600 # max_movie_time on raspbian jessie
+		ffmpeg_video_codec mpeg4
+		locate on # locate_motion_mode on raspbian jessie
 		webcam_localhost off
 		control_localhost off
 		target_dir /home/pi/surveillancePi/content
@@ -37,7 +37,7 @@
 		# make this change to the file
 		start_motion_daemon=yes
 		
-	sudo apt-get install ssmtp mailutils mpack ;
+	sudo apt-get install ssmtp mailutils mpack --yes ;
 	sudo nano /etc/ssmtp/ssmtp.conf ; 
 		# make these changes to the file to your own info
 		mailhub=smtp.gmail.com:587
