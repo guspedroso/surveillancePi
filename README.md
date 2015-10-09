@@ -26,12 +26,15 @@
 		framerate 120
 		pre_capture 2
 		post_capture 2
-		max_mpeg_time 600 # max_movie_time on raspbian jessie
+		max_mpeg_time 600 # max_movie_time if using raspbian jessie
 		ffmpeg_video_codec mpeg4
-		locate on # locate_motion_mode on raspbian jessie
+		locate on # locate_motion_mode if using raspbian jessie
 		webcam_localhost off
 		control_localhost off
 		target_dir /home/pi/surveillancePi/content
+		stream_auth_method 1
+		stream_authentication YOURUSERNAME:YOURPASSWORD
+		webcontrol_authentication YOURUSERNAME:YOURPASSWORD
 		
 	sudo nano /etc/default/motion ; 
 		# make this change to the file
